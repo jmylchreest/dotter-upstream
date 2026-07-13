@@ -13,7 +13,7 @@ pub(crate) fn run_hook(
     handlebars: &Handlebars<'_>,
     variables: &crate::config::Variables,
 ) -> Result<()> {
-    let bat_sibling = if cfg!(windows) && location.extension().map_or(false, |e| e == "sh") {
+    let bat_sibling = if cfg!(windows) && location.extension().is_some_and(|e| e == "sh") {
         let candidate = location.with_extension("bat");
         if candidate.exists() {
             debug!("Using hook file {:?} on windows", candidate);
